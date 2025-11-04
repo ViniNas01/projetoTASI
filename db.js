@@ -3,7 +3,7 @@ import mysql from 'mysql2';
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Vno!120601',
+    password: 'Vno!120601', // * quando Rodar o projeto trocar a senha para root
     database: 'cliente_db'
 });
 
