@@ -16,6 +16,9 @@ router.get('/home', ctrl.showHome);
 router.get('/profissional/:id', ctrl.showProfissional);
 router.post('/contratar/:id', ctrl.confirmarContratacao);
 
+router.get('/meus-servicos', ctrl.listarContratos);
+
+
 // LOGOUT
 router.get('/logout', ctrl.logout);
 export default router;
