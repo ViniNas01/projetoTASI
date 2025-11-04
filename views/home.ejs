@@ -2,15 +2,51 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Home - Cliente</title>
+  <title>Serviços - Cliente</title>
   <link rel="stylesheet" href="/STYLE/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script> <!-- Ícones -->
 </head>
 <body>
-  <div class="container">
-    <h1>Bem-vindo, <%= cliente.nome %>!</h1>
-    <p>Telefone: <%= cliente.telefone %></p>
-    <p>Aqui será a página principal com os serviços disponíveis.</p>
-    <a href="/logout">Sair</a>
-  </div>
+  <header class="top-bar">
+    <div class="logo">🛠️ <span>ContrataFácil</span></div>
+    <div class="perfil">
+      <i data-lucide="user"></i>
+      <span><%= cliente.nome %></span>
+    </div>
+  </header>
+
+  <main class="content">
+    <!-- BARRA DE PESQUISA -->
+    <section class="search-bar">
+      <form method="GET" action="/home">
+        <input type="text" name="busca" placeholder="Buscar serviços ou profissionais..." />
+        <button type="submit"><i data-lucide="search"></i></button>
+      </form>
+    </section>
+
+    <!-- LISTA DE PROFISSIONAIS -->
+    <section class="cards">
+      <% profissionais.forEach(p => { %>
+        <div class="card">
+          <img src="<%= p.imagem %>" alt="<%= p.nome %>">
+          <div class="info">
+            <h3><%= p.nome %></h3>
+            <p class="categoria"><%= p.categoria %></p>
+            <p class="distancia"><i data-lucide="map-pin"></i> <%= p.distancia %></p>
+            <p class="estrelas">
+              <i data-lucide="star"></i> <%= p.estrelas %>
+            </p>
+            <form method="POST" action="/contratar/<%= p.id %>">
+              <button type="submit" class="contratar">Contratar</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </section>
+  </main>
+
+  <script>
+    lucide.createIcons(); // Renderiza os ícones
+  </script>
 </body>
 </html>

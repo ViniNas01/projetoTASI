@@ -52,7 +52,7 @@ const clienteController = {
         });
       }
 
-      const novoCliente = await ClienteModel.create({ nome, endereco, telefone });
+      const novoCliente = await clienteModel.create({ nome, endereco, telefone });
       req.session.cliente = { id: novoCliente.id, nome: novoCliente.nome, telefone: novoCliente.telefone };
 
       res.redirect('/home');
@@ -67,8 +67,39 @@ const clienteController = {
     if (!req.session.cliente) {
       return res.redirect('/login');
     }
-    res.render('home', { cliente: req.session.cliente });
-  },
+
+    const profissionais = [
+      {
+        id: 1,
+        nome: 'Carlos Souza',
+        categoria: 'Eletricista',
+        distancia: '2.3 km',
+        estrelas: 4.8,
+        imagem: '/imagens/eletricista.jpg'
+      },
+      {
+        id: 2,
+        nome: 'Ana Oliveira',
+        categoria: 'Jardineira',
+        distancia: '1.1 km',
+        estrelas: 4.6,
+        imagem: '/imagens/jardineira.jpg'
+      },
+      {
+        id: 3,
+        nome: 'João Mendes',
+        categoria: 'Cuidador de Pets',
+        distancia: '3.7 km',
+        estrelas: 5.0,
+        imagem: '/imagens/cuidador.jpg'
+      }
+    ];
+
+    res.render('home', {
+    cliente: req.session.cliente,
+    profissionais
+  });
+  },    
 
   // --- LOGOUT (opcional) ---
   logout(req, res) {
