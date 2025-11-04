@@ -1,10 +1,12 @@
 import express from 'express';
-import cors from 'cors';
+import bodyParser from 'body-parser';
+import clienteRoutes from './routes/clienteRoutes.js';
 import './db.js';
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+
+
+
 
 const port = 3000;
 
