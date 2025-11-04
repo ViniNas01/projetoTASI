@@ -2,40 +2,47 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Detalhes do Profissional</title>
+  <title>Detalhes do Profissional - ContrataFácil</title>
   <link rel="stylesheet" href="/STYLE/style.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
+<body class="home-body">
+
+  <!-- Cabeçalho fixo -->
   <header class="top-bar">
     <div class="logo">🛠️ <span>ContrataFácil</span></div>
+    <nav class="menu">
+      <a href="/home">Home</a>
+      <a href="/meus-servicos">Meus Serviços</a>
+      <a href="/logout">Sair</a>
+    </nav>
     <div class="perfil">
       <i data-lucide="user"></i>
       <span><%= cliente.nome %></span>
     </div>
   </header>
 
-  <main class="content">
-    <section class="detalhes">
+  <!-- Conteúdo principal -->
+  <main class="content detalhe-profissional">
+    <div class="profissional-card">
       <img src="<%= profissional.imagem %>" alt="<%= profissional.nome %>">
       <div class="info">
         <h2><%= profissional.nome %></h2>
         <p class="categoria"><%= profissional.categoria %></p>
         <p><%= profissional.descricao %></p>
-        <p><strong>Distância:</strong> <%= profissional.distancia %></p>
-        <p><strong>⭐ Avaliação:</strong> <%= profissional.estrelas %></p>
-        <p><strong>💰 Preço médio:</strong> <%= profissional.preco %></p>
+        <p class="detalhe">📍 <%= profissional.distancia %></p>
+        <p class="detalhe">⭐ <%= profissional.estrelas %> avaliações</p>
+        <p class="detalhe">💰 Preço médio: <%= profissional.preco %></p>
 
-        <form method="POST" action="/contratar/<%= profissional.id %>">
-          <button type="submit" class="contratar">Confirmar Contratação</button>
+        <form action="/contratar/<%= profissional.id %>" method="POST">
+          <button type="submit" class="btn-contratar">Confirmar Contratação</button>
         </form>
 
         <a href="/home" class="voltar">← Voltar</a>
       </div>
-    </section>
+    </div>
   </main>
 
   <script>lucide.createIcons();</script>
 </body>
 </html>
-        
