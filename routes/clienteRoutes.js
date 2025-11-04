@@ -12,6 +12,10 @@ router.post('/cadastro', ctrl.handleCadastro);
 // HOME
 router.get('/home', ctrl.showHome);
 
+// PROFISSIONAL (novo)
+router.get('/profissional/:id', ctrl.showProfissional);
+router.post('/contratar/:id', ctrl.confirmarContratacao);
+
 // LOGOUT
 router.get('/logout', ctrl.logout);
 export default router;

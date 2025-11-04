@@ -68,38 +68,110 @@ const clienteController = {
       return res.redirect('/login');
     }
 
+    // Mock de profissionais
     const profissionais = [
       {
         id: 1,
         nome: 'Carlos Souza',
         categoria: 'Eletricista',
+        descricao: 'Especialista em instalações e manutenções elétricas residenciais e comerciais.',
         distancia: '2.3 km',
         estrelas: 4.8,
-        imagem: '/imagens/eletricista.jpg'
+        imagem: '/IMAGENS/eletricista.jpg',
+        preco: 'R$ 150,00'
       },
       {
         id: 2,
         nome: 'Ana Oliveira',
         categoria: 'Jardineira',
+        descricao: 'Cuida de jardins, poda e paisagismo com foco sustentável.',
         distancia: '1.1 km',
         estrelas: 4.6,
-        imagem: '/imagens/jardineira.jpg'
+        imagem: '/IMAGENS/jardineira.jpg',
+        preco: 'R$ 100,00'
       },
       {
         id: 3,
         nome: 'João Mendes',
         categoria: 'Cuidador de Pets',
+        descricao: 'Amante dos animais, oferece cuidados personalizados e passeios diários.',
         distancia: '3.7 km',
         estrelas: 5.0,
-        imagem: '/imagens/cuidador.jpg'
+        imagem: '/IMAGENS/cuidador.jpg',
+        preco: 'R$ 80,00'
       }
     ];
 
     res.render('home', {
-    cliente: req.session.cliente,
-    profissionais
-  });
-  },    
+      cliente: req.session.cliente,
+      profissionais
+    });
+  },
+
+  // === NOVAS FUNÇÕES ===
+  showProfissional(req, res) {
+    if (!req.session.cliente) return res.redirect('/login');
+
+    const { id } = req.params;
+
+    // Mesmo mock (em projeto real: query no DB)
+    const profissionais = [
+      {
+        id: 1,
+        nome: 'Carlos Souza',
+        categoria: 'Eletricista',
+        descricao: 'Especialista em instalações e manutenções elétricas residenciais e comerciais.',
+        distancia: '2.3 km',
+        estrelas: 4.8,
+        imagem: '/IMAGENS/eletricista.jpg',
+        preco: 'R$ 150,00'
+      },
+      {
+        id: 2,
+        nome: 'Ana Oliveira',
+        categoria: 'Jardineira',
+        descricao: 'Cuida de jardins, poda e paisagismo com foco sustentável.',
+        distancia: '1.1 km',
+        estrelas: 4.6,
+        imagem: '/IMAGENS/jardineira.jpg',
+        preco: 'R$ 100,00'
+      },
+      {
+        id: 3,
+        nome: 'João Mendes',
+        categoria: 'Cuidador de Pets',
+        descricao: 'Amante dos animais, oferece cuidados personalizados e passeios diários.',
+        distancia: '3.7 km',
+        estrelas: 5.0,
+        imagem: '/IMAGENS/cuidador.jpg',
+        preco: 'R$ 80,00'
+      }
+    ];
+
+    const profissional = profissionais.find(p => p.id === parseInt(id));
+    if (!profissional) return res.status(404).send('Profissional não encontrado');
+
+    res.render('profissional', {
+      cliente: req.session.cliente,
+      profissional
+    });
+  },
+
+  confirmarContratacao(req, res) {
+    if (!req.session.cliente) return res.redirect('/login');
+
+    const { id } = req.params;
+    const { nome } = req.session.cliente;
+
+    console.log(`Cliente ${nome} contratou o profissional ID ${id}`);
+
+    // Aqui futuramente gravaremos no banco
+    res.send(`
+      <h2>✅ Contratação Confirmada!</h2>
+      <p>Você contratou o profissional ID ${id} com sucesso.</p>
+      <a href="/home">Voltar à página inicial</a>
+    `);
+  },
 
   // --- LOGOUT (opcional) ---
   logout(req, res) {

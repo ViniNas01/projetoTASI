@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Detalhes do Profissional</title>
+  <link rel="stylesheet" href="/STYLE/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <header class="top-bar">
+    <div class="logo">🛠️ <span>ContrataFácil</span></div>
+    <div class="perfil">
+      <i data-lucide="user"></i>
+      <span><%= cliente.nome %></span>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="detalhes">
+      <img src="<%= profissional.imagem %>" alt="<%= profissional.nome %>">
+      <div class="info">
+        <h2><%= profissional.nome %></h2>
+        <p class="categoria"><%= profissional.categoria %></p>
+        <p><%= profissional.descricao %></p>
+        <p><strong>Distância:</strong> <%= profissional.distancia %></p>
+        <p><strong>⭐ Avaliação:</strong> <%= profissional.estrelas %></p>
+        <p><strong>💰 Preço médio:</strong> <%= profissional.preco %></p>
+
+        <form method="POST" action="/contratar/<%= profissional.id %>">
+          <button type="submit" class="contratar">Confirmar Contratação</button>
+        </form>
+
+        <a href="/home" class="voltar">← Voltar</a>
+      </div>
+    </section>
+  </main>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>
+        
