@@ -1,20 +1,20 @@
-import db from '../db';
+import db from '../db.js';
 
 const clienteModel = {
 
     async findByTelefone(telefone) {
-        const[rows] = await db.query('SELECT * FROM CLIENTES WHERE telefone = ?', [telefone]);
+        const [rows] = await db.query('SELECT * FROM clientes WHERE telefone = ?', [telefone]);
         return rows[0];
     },
 
-    async create({nome, endereco, telefone}) {
+    async create({ nome, endereco, telefone }) {
         const [results] = await db.query(
             'INSERT INTO clientes (nome, endereco, telefone) VALUES (?, ?, ?)',
             [nome, endereco, telefone]
         );
-        const [rows] = await db.query('SELECT * FROM CLIENTES WHERE id = ? ', [results.insertId]);
+        const [rows] = await db.query('SELECT * FROM clientes WHERE id = ? ', [results.insertId]);
         return rows[0];
     }
 };
 
-module.exports = clienteModel;
+export default clienteModel;
