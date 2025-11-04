@@ -1,0 +1,6 @@
+body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:0; }
+.container { max-width:420px; margin:60px auto; background:white; padding:20px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+label { display:block; margin-top:10px; font-weight:600; }
+input { width:100%; padding:8px; margin-top:6px; box-sizing:border-box; }
+button { margin-top:12px; padding:10px 16px; border:none; border-radius:6px; cursor:pointer; }
+.error { background:#ffdede; color:#900; padding:8px; border-radius:6px; margin-bottom:10px; }
