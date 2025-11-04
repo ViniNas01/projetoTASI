@@ -1,69 +1,58 @@
 <!doctype html>
 <html>
-
 <head>
   <meta charset="utf-8" />
-  <title>Serviços - Cliente</title>
+  <title>Home - ContrataFácil</title>
   <link rel="stylesheet" href="/STYLE/style.css" />
-  <script src="https://unpkg.com/lucide@latest"></script> <!-- Ícones -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-
-<body>
+<body class="home-body">
+  <!-- Cabeçalho -->
   <header class="top-bar">
-    <div class="logo"><span>FacilitaAí</span></div>
-    <div class="perfil">
-      <i data-lucide="user"></i>
-      <span>
-        <%= cliente.nome %>
-      </span>
+    <div class="logo">
+      🛠️ <span>ContrataFácil</span>
     </div>
-    <nav>
+
+    <nav class="menu">
       <a href="/meus-servicos">Meus Serviços</a>
       <a href="/logout">Sair</a>
     </nav>
 
+    <div class="perfil">
+      <i data-lucide="user"></i>
+      <span><%= cliente.nome %></span>
+    </div>
   </header>
 
+  <!-- Conteúdo principal -->
   <main class="content">
-    <!-- BARRA DE PESQUISA -->
-    <section class="search-bar">
-      <form method="GET" action="/home">
-        <input type="text" name="busca" placeholder="Buscar serviços ou profissionais..." />
+    <!-- Barra de pesquisa -->
+    <section class="search-section">
+      <form action="#" method="GET" class="search-form">
+        <input type="text" placeholder="Buscar serviços..." name="q" />
         <button type="submit"><i data-lucide="search"></i></button>
       </form>
     </section>
 
-    <!-- LISTA DE PROFISSIONAIS -->
-    <section class="cards">
-      <% profissionais.forEach(p=> { %>
-        <div class="card">
-          <img src="<%= p.imagem %>" alt="<%= p.nome %>">
-          <div class="info">
-            <h3>
-              <%= p.nome %>
-            </h3>
-            <p class="categoria">
-              <%= p.categoria %>
-            </p>
-            <p class="distancia"><i data-lucide="map-pin"></i>
-              <%= p.distancia %>
-            </p>
-            <p class="estrelas">
-              <i data-lucide="star"></i>
-              <%= p.estrelas %>
-            </p>
-            <form method="POST" action="/contratar/<%= p.id %>">
-              <button type="submit" class="contratar">Contratar</button>
+    <!-- Lista de profissionais -->
+    <section class="cards-section">
+      <% profissionais.forEach(p => { %>
+        <div class="card-profissional">
+          <img src="<%= p.imagem %>" alt="<%= p.nome %>" />
+          <div class="card-info">
+            <h3><%= p.nome %></h3>
+            <p class="categoria"><%= p.categoria %></p>
+            <p class="detalhe">📍 <%= p.distancia %> de você</p>
+            <p class="detalhe">⭐ <%= p.estrelas %> avaliações</p>
+            <form action="/profissional/<%= p.id %>" method="GET">
+              <button type="submit" class="btn-contratar">Contratar</button>
             </form>
           </div>
         </div>
-        <% }) %>
+      <% }) %>
     </section>
   </main>
 
-  <script>
-    lucide.createIcons(); // Renderiza os ícones
-  </script>
+  <script>lucide.createIcons();</script>
 </body>
-
 </html>

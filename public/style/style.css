@@ -1,245 +1,248 @@
-/* ======== LAYOUT BASE ======== */
-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #f4f6f8;
-  margin: 0;
-  padding: 0;
+
+/* ======== LOGIN PAGE ======== */
+.login-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #004aad, #2b6ff3);
+  font-family: 'Poppins', sans-serif;
 }
 
-/* ======== CABEÇALHO ======== */
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #004aad;
-  color: white;
-  padding: 12px 24px;
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.login-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 28px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
 .logo {
+  font-size: 28px;
+  color: #004aad;
+  margin-bottom: 10px;
+}
+
+.login-box h2 {
   font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #004aad;
+  box-shadow: 0 0 4px rgba(0,74,173,0.3);
+}
+
+.login-form button {
+  background: #004aad;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-form button:hover {
+  background: #00327a;
+}
+
+.link-cadastro {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #444;
+}
+
+.link-cadastro a {
+  color: #004aad;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link-cadastro a:hover {
+  text-decoration: underline;
+}
+
+/* ======== HOME PAGE ======== */
+.home-body {
+  background: #f4f6fb;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* ----- Cabeçalho ----- */
+.top-bar {
+  position: sticky;
+  top: 0;
+  background: #004aad;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 100;
+}
+
+.top-bar .logo {
+  font-size: 22px;
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+}
+
+.top-bar .logo span {
+  font-weight: 600;
+}
+
+.top-bar .menu a {
+  color: white;
+  text-decoration: none;
+  margin: 0 12px;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.top-bar .menu a:hover {
+  opacity: 0.8;
 }
 
 .perfil {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 16px;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.perfil i {
-  width: 24px;
-  height: 24px;
-}
-
-/* ======== PESQUISA ======== */
-.search-bar {
-  background: white;
-  padding: 16px;
-  text-align: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.search-bar form {
-  display: inline-flex;
-  align-items: center;
-  width: 100%;
-  max-width: 500px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.search-bar input {
-  flex: 1;
-  padding: 10px 12px;
-  border: none;
-  outline: none;
-  font-size: 15px;
-}
-
-.search-bar button {
-  background: #004aad;
-  border: none;
-  padding: 10px 14px;
-  cursor: pointer;
-  color: white;
+/* ----- Barra de pesquisa ----- */
+.search-section {
   display: flex;
-  align-items: center;
   justify-content: center;
-}
-
-.search-bar button i {
-  width: 20px;
-  height: 20px;
-}
-
-/* ======== CARDS ======== */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
   padding: 24px;
 }
 
-.card {
-  background: white;
-  border-radius: 10px;
+.search-form {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 30px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
 }
 
-.card img {
+.search-form input {
+  flex: 1;
+  padding: 12px 18px;
+  border: none;
+  font-size: 15px;
+}
+
+.search-form input:focus {
+  outline: none;
+}
+
+.search-form button {
+  background: #004aad;
+  border: none;
+  padding: 10px 16px;
+  color: white;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  background: #00327a;
+}
+
+/* ----- Cards de profissionais ----- */
+.cards-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 0 24px 40px;
+}
+
+.card-profissional {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-profissional:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card-profissional img {
   width: 100%;
   height: 180px;
   object-fit: cover;
 }
 
-.card .info {
+.card-info {
   padding: 16px;
 }
 
-.card h3 {
+.card-info h3 {
   margin: 0;
   font-size: 18px;
-  color: #333;
+  color: #004aad;
 }
 
-.card p {
-  margin: 6px 0;
-  color: #555;
+.card-info .categoria {
   font-size: 14px;
+  color: #555;
+  margin: 4px 0;
 }
 
-.card .categoria {
-  font-weight: bold;
-  color: #004aad;
+.card-info .detalhe {
+  font-size: 13px;
+  color: #666;
+  margin: 2px 0;
 }
 
-.card .distancia i,
-.card .estrelas i {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-
-.card .contratar {
+.btn-contratar {
   width: 100%;
-  padding: 10px;
-  background: #00b859;
-  color: white;
-  border: none;
-  border-radius: 6px;
   margin-top: 10px;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-.card .contratar:hover {
-  background: #009e4e;
-}
-
-/* ======== RESPONSIVO ======== */
-@media (max-width: 600px) {
-  .top-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .perfil span {
-    font-size: 14px;
-  }
-}
-
-/* ======== DETALHES DO PROFISSIONAL ======== */
-.detalhes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 24px;
-  background: white;
-  margin: 24px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.detalhes img {
-  width: 320px;
-  height: 240px;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.detalhes .info {
-  flex: 1;
-}
-
-.detalhes h2 {
-  margin-top: 0;
-  font-size: 24px;
-  color: #004aad;
-}
-
-.detalhes p {
-  font-size: 15px;
-  margin: 8px 0;
-  color: #444;
-}
-
-.voltar {
-  display: inline-block;
-  margin-top: 10px;
-  text-decoration: none;
-  color: #004aad;
-  font-weight: 500;
-}
-
-.voltar:hover {
-  text-decoration: underline;
-}
-
-/* ======== TABELA DE CONTRATOS ======== */
-.tabela-contratos {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 16px;
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.tabela-contratos th, .tabela-contratos td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-}
-
-.tabela-contratos th {
   background: #004aad;
   color: white;
-  text-transform: uppercase;
-  font-size: 14px;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-.tabela-contratos tr:hover {
-  background: #f5f5f5;
-}
-
-nav a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #ffffff;
-  font-weight: 500;
-}
-
-nav a:hover {
-  text-decoration: underline;
+.btn-contratar:hover {
+  background: #00327a;
 }

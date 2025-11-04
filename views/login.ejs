@@ -5,21 +5,24 @@
   <title>Login - Cliente</title>
   <link rel="stylesheet" href="/STYLE/style.css" />
 </head>
-<body>
-  <div class="container">
-    <h1>Login do Cliente</h1>
+<body class="login-body">
 
-    <% if (error) { %>
-      <div class="error"><%= error %></div>
-    <% } %>
+  <div class="login-container">
+    <div class="login-box">
+      <h1 class="logo">🛠️ ContrataFácil</h1>
+      <h2>Entrar</h2>
 
-    <form method="POST" action="/login">
-      <label>Telefone</label>
-      <input type="text" name="telefone" value="<%= form.telefone || '' %>" required />
-      <button type="submit">Entrar</button>
-    </form>
+      <form action="/login" method="POST" class="login-form">
+        <input type="text" name="nome" placeholder="Nome completo" required />
+        <input type="text" name="telefone" placeholder="Telefone" required />
+        <button type="submit">Entrar</button>
+      </form>
 
-    <p>Não tem cadastro? <a href="/cadastro">Cadastrar-se</a></p>
+      <p class="link-cadastro">
+        Ainda não tem conta? <a href="/cadastro">Cadastre-se</a>
+      </p>
+    </div>
   </div>
+
 </body>
 </html>
