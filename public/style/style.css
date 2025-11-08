@@ -404,6 +404,71 @@
   opacity: 0.8;
 }
 
+/* ======== FIX HEADER: logo à esquerda, avatar à direita, alinhados ======== */
+/* Aplica layout em linha e garante alinhamento */
+.top-bar {
+  display: flex !important;
+  flex-direction: row !important;    /* força linha — evita quebrar em coluna */
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 12px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+}
+
+/* Garante que a logo fique à esquerda */
+.top-bar .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+
+/* Área do perfil fixa à direita */
+.perfil-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  margin-left: auto; /* empurra para a direita */
+}
+
+/* Perfil: ícone + nome */
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.06);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+/* Evita que o header quebre em pequenas larguras */
+.top-bar, .logo, .perfil-area {
+  min-width: 0;
+}
+
+/* Mobile: mantém logo à esquerda e avatar à direita sem quebrar
+   mas reduz espaçamento e esconde parte do texto se necessário */
+@media (max-width: 480px) {
+  .top-bar {
+    padding: 10px 12px;
+  }
+  .logo { font-size: 18px; gap:6px; }
+  .perfil { padding: 5px 8px; gap:6px; }
+  /* se a tela for muito estreita, escondemos o nome e mantemos o ícone */
+  .perfil span {
+    display: none;
+  }
+  .perfil .seta {
+    display: none;
+  }
+}
+
+
 .perfil {
   display: flex;
   align-items: center;
@@ -937,3 +1002,443 @@
   background: #e84c4c;
   transform: translateY(-1px);
 }
+
+/* ======== LOGIN / CADASTRO - RESPONSIVO ======== */
+
+/* Container centralizado */
+.login-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #004aad, #2b6ff3);
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px 30px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Título e logo */
+.login-box .logo {
+  font-size: 28px;
+  color: #004aad;
+  margin-bottom: 8px;
+}
+
+.login-box h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+/* Formulário */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-form input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #004aad;
+  box-shadow: 0 0 4px rgba(0, 74, 173, 0.3);
+}
+
+/* Botão principal */
+.login-form button {
+  background: #004aad;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.login-form button:hover {
+  background: #00327a;
+  transform: translateY(-1px);
+}
+
+/* Links e mensagens */
+.link-cadastro {
+  margin-top: 18px;
+  font-size: 14px;
+  color: #555;
+}
+
+.link-cadastro a {
+  color: #004aad;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link-cadastro a:hover {
+  text-decoration: underline;
+}
+
+/* Mensagens de erro */
+.error {
+  background: #fff0f0;
+  color: #8a0b0b;
+  border: 1px solid #f5c2c2;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+/* ======== RESPONSIVIDADE ======== */
+@media (max-width: 600px) {
+  .login-box {
+    padding: 28px 22px;
+    border-radius: 12px;
+  }
+
+  .login-box h2 {
+    font-size: 18px;
+  }
+
+  .login-form input,
+  .login-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .login-box .logo {
+    font-size: 24px;
+  }
+
+  .link-cadastro {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-box {
+    padding: 24px 18px;
+  }
+
+  .login-form input,
+  .login-form button {
+    font-size: 13px;
+    padding: 9px;
+  }
+
+  .login-box .logo {
+    font-size: 22px;
+  }
+}
+
+
+/* ======== HOME RESPONSIVA ======== */
+
+/* Layout base */
+.home-body {
+  background: #f4f6fb;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Header */
+.top-bar {
+  position: sticky;
+  top: 0;
+  background: #004aad;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 100;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.perfil-area {
+  position: relative;
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background: rgba(255,255,255,0.1);
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.perfil:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: none;
+  min-width: 160px;
+  z-index: 200;
+}
+
+.dropdown a {
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #004aad;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.dropdown a:hover {
+  background: #f0f4ff;
+}
+
+.dropdown.mostrar {
+  display: block;
+}
+
+/* Search section */
+.search-section {
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.search-wrapper {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+}
+
+#search-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e6e6e6;
+  border-radius: 28px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+#search-form button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  bottom: 8px;
+  background: #004aad;
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#search-form button i { width:18px; height:18px; }
+
+/* Cards */
+.cards-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 0 24px 40px;
+}
+
+.card-profissional {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-profissional:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card-profissional img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-info {
+  padding: 16px;
+}
+
+.card-info h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #004aad;
+}
+
+.card-info .categoria {
+  font-size: 14px;
+  color: #555;
+  margin: 4px 0;
+}
+
+.card-info .detalhe {
+  font-size: 13px;
+  color: #666;
+  margin: 2px 0;
+}
+
+.btn-contratar {
+  width: 100%;
+  margin-top: 10px;
+  background: #004aad;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-contratar:hover {
+  background: #00327a;
+}
+
+/* No results */
+.no-results {
+  background: #fff8e6;
+  color: #6b3d00;
+  border: 1px solid #f1e0b8;
+  padding: 12px 16px;
+  border-radius: 8px;
+  max-width: 900px;
+  margin: 12px auto;
+  text-align: center;
+}
+
+/* ======== RESPONSIVIDADE ======== */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 20px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .perfil {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
+
+  .search-section {
+    padding: 20px 12px;
+  }
+
+  #search-input {
+    font-size: 14px;
+  }
+
+  .card-info h3 {
+    font-size: 16px;
+  }
+
+  .card-profissional img {
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-bar {
+    padding: 10px 16px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .perfil span {
+    display: none;
+  }
+
+  .perfil .seta {
+    display: none;
+  }
+
+  .search-wrapper {
+    max-width: 100%;
+  }
+
+  .card-profissional img {
+    height: 140px;
+  }
+
+  .card-info h3 {
+    font-size: 15px;
+  }
+
+  .card-info .categoria,
+  .card-info .detalhe {
+    font-size: 12px;
+  }
+
+  .btn-contratar {
+    padding: 8px;
+    font-size: 13px;
+  }
+}
+
+/* Mobile: garantir que o ícone do avatar permaneça visível mesmo quando o nome é escondido */
+@media (max-width: 480px) {
+  .perfil i,
+  .perfil svg {
+    display: inline-flex !important;
+    width: 18px !important;
+    height: 18px !important;
+    color: #fff !important; /* cor branca sobre o header azul */
+    stroke: currentColor !important; /* garante que SVG use a cor atual */
+    fill: none !important;
+  }
+
+  /* se houver ícones dentro de links/itens, garantir visibilidade */
+  .perfil .seta {
+    display: none; /* manter seta oculta para economizar espaço */
+  }
+}
+

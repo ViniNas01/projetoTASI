@@ -1,13 +1,13 @@
 <!doctype html>
-<html>
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <title>Cadastro - Cliente</title>
+  <title>Cadastro - FacilitaAí</title>
   <link rel="stylesheet" href="/style/style.css" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 </head>
-<body class="login-body"> <!-- usamos o mesmo fundo da página de login -->
 
+<body class="login-body">
   <div class="login-container">
     <div class="login-box">
       <h1 class="logo">🛠️ FacilitaAí</h1>
@@ -21,15 +21,14 @@
         <input type="text" name="nome" placeholder="Nome completo" value="<%= form && form.nome ? form.nome : '' %>" required />
         <input type="text" name="endereco" placeholder="Endereço" value="<%= form && form.endereco ? form.endereco : '' %>" />
         <input type="text" name="telefone" placeholder="Telefone" value="<%= form && form.telefone ? form.telefone : '' %>" required />
-
         <button type="submit">Cadastrar</button>
       </form>
 
       <p class="link-cadastro">
-        Já tem uma conta? <a href="/login">Fazer login</a>
+        Já tem uma conta?
+        <a href="/login">Fazer login</a>
       </p>
     </div>
   </div>
-
 </body>
 </html>

@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Meus Serviços - FacilitaAí</title>
   <link rel="stylesheet" href="/style/style.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="home-body">
@@ -84,23 +85,25 @@
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
-    lucide.createIcons();
+    try{ if(window.lucide && lucide.createIcons) lucide.createIcons(); }catch(e){}
 
-    // Dropdown do perfil
-    const perfilToggle = document.getElementById('perfil-toggle');
-    const dropdown = document.getElementById('perfil-dropdown');
+    (function(){
+      const perfilToggle = document.getElementById('perfil-toggle');
+      const dropdown = document.getElementById('perfil-dropdown');
+      if(!perfilToggle || !dropdown) return;
 
-    perfilToggle.addEventListener('click', () => {
-      dropdown.classList.toggle('mostrar');
-      perfilToggle.classList.toggle('ativo');
-    });
+      perfilToggle.addEventListener('click', () => {
+        dropdown.classList.toggle('mostrar');
+        perfilToggle.classList.toggle('ativo');
+      });
 
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.perfil-area')) {
-        dropdown.classList.remove('mostrar');
-        perfilToggle.classList.remove('ativo');
-      }
-    });
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.perfil-area')) {
+          dropdown.classList.remove('mostrar');
+          perfilToggle.classList.remove('ativo');
+        }
+      });
+    })();
   </script>
 </body>
 
