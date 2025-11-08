@@ -2,37 +2,42 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Editar Contrato</title>
+  <title>Editar Contrato - FacilitaAí</title>
   <link rel="stylesheet" href="/style/style.css" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body class="home-body">
+
   <!-- Cabeçalho -->
   <header class="top-bar">
-  <div class="logo">
-    🛠️ <span>ContrataFácil</span>
-  </div>
-
-  <div class="perfil-area">
-    <div class="perfil" id="perfil-toggle">
-      <i data-lucide="user"></i>
-      <span><%= cliente.nome %></span>
-      <i data-lucide="chevron-down" class="seta"></i>
+    <div class="logo">
+      🛠️ <span>FacilitaAí</span>
     </div>
 
-    <div class="dropdown" id="perfil-dropdown">
-      <a href="/meus-servicos">Meus Serviços</a>
-      <a href="/logout">Sair</a>
+    <div class="perfil-area">
+      <div class="perfil" id="perfil-toggle">
+        <i data-lucide="user"></i>
+        <span><%= cliente.nome %></span>
+        <i data-lucide="chevron-down" class="seta"></i>
+      </div>
+
+      <div class="dropdown" id="perfil-dropdown">
+        <a href="/home">Home</a>
+        <a href="/meus-servicos">Meus Serviços</a>
+        <a href="/logout">Sair</a>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-  <main class="content">
-    <section class="detalhes" style="max-width:900px;margin:24px auto;padding:0;">
-      <div style="background:#fff;padding:24px;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,0.06);">
-        <h2>Editar Serviço Contratado</h2>
+  <!-- Conteúdo principal -->
+  <main class="content" style="padding:40px 24px;">
+    <section class="detalhes" style="max-width:900px;margin:0 auto;">
+      <div class="card-editar">
+        <h2>🛠️ Editar Serviço Contratado</h2>
 
-        <form action="/contratos/<%= contrato.id %>/editar" method="POST" style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
+        <form action="/contratos/<%= contrato.id %>/editar" method="POST" class="form-editar">
           <label>
             Profissional
             <input type="text" name="profissional_nome" value="<%= contrato.profissional_nome %>" required />
@@ -53,36 +58,33 @@
             </select>
           </label>
 
-          <div class="acoes-servico" style="margin-top:8px;">
-            <button type="submit" class="btn-contratar" style="background:#ffd166;color:#222;padding:10px 14px;">Salvar</button>
-            <a href="/meus-servicos" class="btn-contratar" style="background:#ccc;color:#111;padding:10px 14px;">Cancelar</a>
+          <div class="acoes-servico">
+            <button type="submit" class="btn-contratar btn-amarelo">Salvar</button>
+            <a href="/meus-servicos" class="btn-contratar btn-cinza">Cancelar</a>
           </div>
         </form>
       </div>
     </section>
   </main>
 
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script>lucide.createIcons();</script>
-
   <script>
-  lucide.createIcons();
+    lucide.createIcons();
 
-  // Dropdown do perfil
-  const perfilToggle = document.getElementById('perfil-toggle');
-  const dropdown = document.getElementById('perfil-dropdown');
+    // Dropdown do perfil
+    const perfilToggle = document.getElementById('perfil-toggle');
+    const dropdown = document.getElementById('perfil-dropdown');
 
-  perfilToggle.addEventListener('click', () => {
-    dropdown.classList.toggle('mostrar');
-    perfilToggle.classList.toggle('ativo');
-  });
+    perfilToggle.addEventListener('click', () => {
+      dropdown.classList.toggle('mostrar');
+      perfilToggle.classList.toggle('ativo');
+    });
 
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.perfil-area')) {
-      dropdown.classList.remove('mostrar');
-      perfilToggle.classList.remove('ativo');
-    }
-  });
-</script>
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.perfil-area')) {
+        dropdown.classList.remove('mostrar');
+        perfilToggle.classList.remove('ativo');
+      }
+    });
+  </script>
 </body>
 </html>

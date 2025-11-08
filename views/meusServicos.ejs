@@ -2,36 +2,39 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Meus Serviços - ContrataFácil</title>
+  <title>Meus Serviços - FacilitaAí</title>
   <link rel="stylesheet" href="/style/style.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="home-body">
-
+  <!-- Cabeçalho -->
   <header class="top-bar">
-  <div class="logo">
-    🛠️ <span>ContrataFácil</span>
-  </div>
-
-  <div class="perfil-area">
-    <div class="perfil" id="perfil-toggle">
-      <i data-lucide="user"></i>
-      <span><%= cliente.nome %></span>
-      <i data-lucide="chevron-down" class="seta"></i>
+    <div class="logo">
+      🛠️ <span>FacilitaAí</span>
     </div>
 
-    <div class="dropdown" id="perfil-dropdown">
-      <a href="/home">Home</a>
-      <a href="/meus-servicos">Meus Serviços</a>
-      <a href="/logout">Sair</a>
-    </div>
-  </div>
-</header>
+    <div class="perfil-area">
+      <div class="perfil" id="perfil-toggle">
+        <i data-lucide="user"></i>
+        <span><%= cliente.nome %></span>
+        <i data-lucide="chevron-down" class="seta"></i>
+      </div>
 
+      <div class="dropdown" id="perfil-dropdown">
+        <a href="/home">Home</a>
+        <a href="/logout">Sair</a>
+      </div>
+    </div>
+  </header>
 
   <!-- Conteúdo principal -->
   <main class="content meus-servicos">
-    <h2>📋 Meus Serviços Contratados</h2>
+    <div class="titulo-area">
+      <h2>📋 Meus Serviços Contratados</h2>
+      <a href="/home" class="btn-voltar">
+        <i data-lucide="arrow-left"></i> Voltar
+      </a>
+    </div>
 
     <% if (typeof success !== 'undefined' && success) { %>
       <div class="success"><%= success %></div>
@@ -47,49 +50,58 @@
       <div class="cards-servicos">
         <% contratos.forEach(c => { %>
           <div class="card-servico">
-            <div class="card-info">
-              <h3><%= c.profissional_nome %></h3>
-              <p class="categoria"><%= c.categoria %></p>
-              <p class="detalhe">🗓️ <%= new Date(c.data_contratacao).toLocaleString('pt-BR') %></p>
-              <p class="detalhe">📌 Status: <%= c.status %></p>
-
-              <div class="acoes-servico" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-                <a href="/contratos/<%= c.id %>/editar" class="btn-contratar" style="background:#ffd166;color:#222;padding:8px 12px;">Editar</a>
-
-                <form action="/contratos/<%= c.id %>/excluir" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este serviço?');" style="display:inline-block;">
-                  <button type="submit" class="btn-contratar" style="background:#ff5c5c;">Excluir</button>
-                </form>
+            <div class="card-header">
+              <div class="icon">
+                <i data-lucide="briefcase"></i>
               </div>
+              <div>
+                <h3><%= c.profissional_nome %></h3>
+                <p class="categoria"><%= c.categoria %></p>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <p class="detalhe">🗓️ <strong>Data:</strong> <%= new Date(c.data_contratacao).toLocaleDateString('pt-BR') %></p>
+              <p class="detalhe">📌 <strong>Status:</strong> <%= c.status.charAt(0).toUpperCase() + c.status.slice(1) %></p>
+            </div>
+
+            <div class="card-footer">
+              <a href="/contratos/<%= c.id %>/editar" class="btn-acao editar">
+                <i data-lucide="edit-3"></i> Editar
+              </a>
+
+              <form action="/contratos/<%= c.id %>/excluir" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este serviço?');">
+                <button type="submit" class="btn-acao excluir">
+                  <i data-lucide="trash-2"></i> Excluir
+                </button>
+              </form>
             </div>
           </div>
         <% }) %>
       </div>
     <% } %>
-
-    <a href="/home" class="voltar">← Voltar</a>
   </main>
 
-  <script>lucide.createIcons();</script>
-
+  <script src="https://unpkg.com/lucide@latest"></script>
   <script>
-  lucide.createIcons();
+    lucide.createIcons();
 
-  // Dropdown do perfil
-  const perfilToggle = document.getElementById('perfil-toggle');
-  const dropdown = document.getElementById('perfil-dropdown');
+    // Dropdown do perfil
+    const perfilToggle = document.getElementById('perfil-toggle');
+    const dropdown = document.getElementById('perfil-dropdown');
 
-  perfilToggle.addEventListener('click', () => {
-    dropdown.classList.toggle('mostrar');
-    perfilToggle.classList.toggle('ativo');
-  });
+    perfilToggle.addEventListener('click', () => {
+      dropdown.classList.toggle('mostrar');
+      perfilToggle.classList.toggle('ativo');
+    });
 
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.perfil-area')) {
-      dropdown.classList.remove('mostrar');
-      perfilToggle.classList.remove('ativo');
-    }
-  });
-</script>
-
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.perfil-area')) {
+        dropdown.classList.remove('mostrar');
+        perfilToggle.classList.remove('ativo');
+      }
+    });
+  </script>
 </body>
+
 </html>

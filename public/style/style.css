@@ -389,6 +389,7 @@
 
 .top-bar .logo span {
   font-weight: 600;
+  color: #fff;
 }
 
 .top-bar .menu a {
@@ -722,4 +723,217 @@
 
 .voltar:hover {
   text-decoration: underline;
+}
+
+/* ======== EDIÇÃO DE SERVIÇO ======== */
+.card-editar {
+  background: #fff;
+  padding: 28px 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card-editar h2 {
+  color: #004aad;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.form-editar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-editar label {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  color: #333;
+  font-weight: 500;
+  gap: 4px;
+}
+
+.form-editar input,
+.form-editar select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-editar input:focus,
+.form-editar select:focus {
+  outline: none;
+  border-color: #004aad;
+  box-shadow: 0 0 4px rgba(0,74,173,0.3);
+}
+
+.acoes-servico {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.btn-amarelo {
+  background: #ffd166;
+  color: #222;
+}
+
+.btn-cinza {
+  background: #ccc;
+  color: #111;
+}
+
+.btn-amarelo:hover {
+  background: #f7c94f;
+}
+
+.btn-cinza:hover {
+  background: #bdbdbd;
+}
+
+/* ======== BOTÃO VOLTAR PADRÃO ======== */
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #e8edff;
+  color: #004aad;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.btn-voltar:hover {
+  background: #dbe3ff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-voltar i {
+  width: 18px;
+  height: 18px;
+}
+
+/* ======== MEUS SERVIÇOS (VISUAL MODERNO) ======== */
+.titulo-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto 24px;
+  padding: 0 12px;
+}
+
+.cards-servicos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card-servico {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.card-servico:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.card-header .icon {
+  background: #e8edff;
+  color: #004aad;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-header h3 {
+  font-size: 17px;
+  margin: 0;
+  color: #004aad;
+}
+
+.card-header .categoria {
+  font-size: 13px;
+  color: #555;
+}
+
+.card-body {
+  flex: 1;
+  font-size: 14px;
+  color: #444;
+  margin: 8px 0 14px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-acao {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-acao i {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-acao.editar {
+  background: #ffd166;
+  color: #222;
+}
+
+.btn-acao.editar:hover {
+  background: #f7c94f;
+  transform: translateY(-1px);
+}
+
+.btn-acao.excluir {
+  background: #ff5c5c;
+  color: #fff;
+}
+
+.btn-acao.excluir:hover {
+  background: #e84c4c;
+  transform: translateY(-1px);
 }
