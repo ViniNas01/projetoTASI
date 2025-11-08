@@ -1,9 +1,10 @@
-    <!doctype html>
+<!doctype html>
 <html>
 <head>
   <meta charset="utf-8" />
   <title>Cadastro - Cliente</title>
-  <link rel="stylesheet" href="/STYLE/style.css" />
+  <link rel="stylesheet" href="/style/style.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 </head>
 <body class="login-body"> <!-- usamos o mesmo fundo da página de login -->
 
@@ -12,10 +13,14 @@
       <h1 class="logo">🛠️ ContrataFácil</h1>
       <h2>Cadastro de Cliente</h2>
 
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error"><%= error %></div>
+      <% } %>
+
       <form action="/cadastro" method="POST" class="login-form">
-        <input type="text" name="nome" placeholder="Nome completo" required />
-        <input type="text" name="endereco" placeholder="Endereço" required />
-        <input type="text" name="telefone" placeholder="Telefone" required />
+        <input type="text" name="nome" placeholder="Nome completo" value="<%= form && form.nome ? form.nome : '' %>" required />
+        <input type="text" name="endereco" placeholder="Endereço" value="<%= form && form.endereco ? form.endereco : '' %>" />
+        <input type="text" name="telefone" placeholder="Telefone" value="<%= form && form.telefone ? form.telefone : '' %>" required />
 
         <button type="submit">Cadastrar</button>
       </form>

@@ -9,23 +9,28 @@ const clienteController = {
     },
 
     async handleLogin(req, res) {
-        const { telefone } = req.body;
+        const { nome, telefone } = req.body;
 
-        if (!telefone) {
-            return res.render('login', { error: 'Informe o telefone.', form: { telefone } });
+        // Validação básica de presença
+        if (!nome || !telefone) {
+            return res.render('login', { error: 'Nome e telefone são obrigatórios.', form: { nome, telefone } });
         }
 
         try {
             const cliente = await clienteModel.findByTelefone(telefone);
-            if (!cliente) {
-                return res.render('login', { error: 'Telefone não cadastrado.', form: { telefone } });
+
+            // Mensagem ambígua para evitar expor se o telefone existe
+            const loginError = 'Usuário ou telefone incorretos.';
+
+            if (!cliente || (cliente.nome && cliente.nome.trim().toLowerCase() !== nome.trim().toLowerCase())) {
+                return res.render('login', { error: loginError, form: { nome, telefone } });
             }
 
             req.session.cliente = { id: cliente.id, nome: cliente.nome, telefone: cliente.telefone };
-            res.redirect('/home');
+            return res.redirect('/home');
         } catch (err) {
             console.error(err);
-            res.render('login', { error: 'Erro do servidor. Tente novamente.', form: { telefone } });
+            return res.render('login', { error: 'Erro do servidor. Tente novamente.', form: { nome, telefone } });
         }
     },
 

@@ -70,6 +70,21 @@
   background: #00327a;
 }
 
+/* ======== MENSAGENS DE ERRO ======== */
+.error {
+  background: #fff0f0;
+  color: #8a0b0b;
+  border: 1px solid #f5c2c2;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.login-box .error {
+  text-align: center;
+}
+
 .link-cadastro {
   margin-top: 16px;
   font-size: 14px;
