@@ -7,18 +7,25 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 </head>
 <body class="home-body">
+  <!-- Cabeçalho -->
   <header class="top-bar">
-    <div class="logo">🛠️ <span>ContrataFácil</span></div>
-    <nav class="menu">
-      <a href="/home">Home</a>
+  <div class="logo">
+    🛠️ <span>ContrataFácil</span>
+  </div>
+
+  <div class="perfil-area">
+    <div class="perfil" id="perfil-toggle">
+      <i data-lucide="user"></i>
+      <span><%= cliente.nome %></span>
+      <i data-lucide="chevron-down" class="seta"></i>
+    </div>
+
+    <div class="dropdown" id="perfil-dropdown">
       <a href="/meus-servicos">Meus Serviços</a>
       <a href="/logout">Sair</a>
-    </nav>
-    <div class="perfil">
-      <i data-lucide="user"></i>
-      <span><%= cliente ? cliente.nome : '' %></span>
     </div>
-  </header>
+  </div>
+</header>
 
   <main class="content">
     <section class="detalhes" style="max-width:900px;margin:24px auto;padding:0;">
@@ -57,5 +64,25 @@
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>lucide.createIcons();</script>
+
+  <script>
+  lucide.createIcons();
+
+  // Dropdown do perfil
+  const perfilToggle = document.getElementById('perfil-toggle');
+  const dropdown = document.getElementById('perfil-dropdown');
+
+  perfilToggle.addEventListener('click', () => {
+    dropdown.classList.toggle('mostrar');
+    perfilToggle.classList.toggle('ativo');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.perfil-area')) {
+      dropdown.classList.remove('mostrar');
+      perfilToggle.classList.remove('ativo');
+    }
+  });
+</script>
 </body>
 </html>
