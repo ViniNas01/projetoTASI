@@ -24,6 +24,23 @@ const contratoModel = {
     const [rows] = await db.query(sql, [cliente_id]);
     return rows;
   }
+,
+
+  async findById(id) {
+    const sql = `SELECT * FROM contratos WHERE id = ?`;
+    const [rows] = await db.query(sql, [id]);
+    return rows[0];
+  },
+
+  async atualizar(id, { profissional_nome, categoria, status }) {
+    const sql = `UPDATE contratos SET profissional_nome = ?, categoria = ?, status = ? WHERE id = ?`;
+    await db.query(sql, [profissional_nome, categoria, status, id]);
+  },
+
+  async excluir(id) {
+    const sql = `DELETE FROM contratos WHERE id = ?`;
+    await db.query(sql, [id]);
+  }
 };
 
 export default contratoModel;

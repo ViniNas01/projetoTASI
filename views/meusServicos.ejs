@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <title>Meus Serviços - ContrataFácil</title>
-  <link rel="stylesheet" href="/STYLE/style.css" />
+  <link rel="stylesheet" href="/style/style.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="home-body">
@@ -25,6 +25,14 @@
   <main class="content meus-servicos">
     <h2>📋 Meus Serviços Contratados</h2>
 
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="success"><%= success %></div>
+    <% } %>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+
     <% if (contratos.length === 0) { %>
       <p class="nenhum-servico">Você ainda não contratou nenhum serviço.</p>
     <% } else { %>
@@ -36,6 +44,14 @@
               <p class="categoria"><%= c.categoria %></p>
               <p class="detalhe">🗓️ <%= new Date(c.data_contratacao).toLocaleString('pt-BR') %></p>
               <p class="detalhe">📌 Status: <%= c.status %></p>
+
+              <div class="acoes-servico" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+                <a href="/contratos/<%= c.id %>/editar" class="btn-contratar" style="background:#ffd166;color:#222;padding:8px 12px;">Editar</a>
+
+                <form action="/contratos/<%= c.id %>/excluir" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este serviço?');" style="display:inline-block;">
+                  <button type="submit" class="btn-contratar" style="background:#ff5c5c;">Excluir</button>
+                </form>
+              </div>
             </div>
           </div>
         <% }) %>

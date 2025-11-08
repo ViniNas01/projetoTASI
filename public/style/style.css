@@ -85,6 +85,79 @@
   text-align: center;
 }
 
+/* ======== MENSAGEM DE SUCESSO ======== */
+.success {
+  background: #effff0;
+  color: #116530;
+  border: 1px solid #c6f0d0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.meus-servicos .success,
+.meus-servicos .error {
+  max-width: 900px;
+  margin: 12px auto;
+}
+
+/* ======== AUTOCOMPLETE SUGGESTIONS ======== */
+.autocomplete {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  z-index: 40;
+  max-height: 280px;
+  overflow: auto;
+}
+.autocomplete-item {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f5f5f5;
+}
+.autocomplete-item:hover { background:#f7f7f7; }
+
+/* ======== SEARCH INPUT (VISUAL PADRÃO) ======== */
+#search-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e6e6e6;
+  border-radius: 28px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+#search-form button {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  bottom: 6px;
+  background: #004aad;
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#search-form button i { width:18px; height:18px; }
+
+/* ======== NO RESULTS ======== */
+.no-results {
+  background: #fff8e6;
+  color: #6b3d00;
+  border: 1px solid #f1e0b8;
+  padding: 12px 16px;
+  border-radius: 8px;
+  max-width: 900px;
+  margin: 12px auto;
+}
+
+
 .link-cadastro {
   margin-top: 16px;
   font-size: 14px;

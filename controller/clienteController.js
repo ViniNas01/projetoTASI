@@ -1,6 +1,40 @@
 import clienteModel from '../models/clienteModel.js';
 import contratoModel from '../models/contratoModel.js';
 
+// Mock global de profissionais (usado para home e para sugestões)
+const PROFESSIONALS = [
+    {
+        id: 1,
+        nome: 'Carlos Souza',
+        categoria: 'Eletricista',
+        descricao: 'Especialista em instalações e manutenções elétricas residenciais e comerciais.',
+        distancia: '2.3 km',
+        estrelas: 4.8,
+        imagem: '/imagens/eletricista.jpg',
+        preco: 'R$ 150,00'
+    },
+    {
+        id: 2,
+        nome: 'Ana Oliveira',
+        categoria: 'Jardineira',
+        descricao: 'Cuida de jardins, poda e paisagismo com foco sustentável.',
+        distancia: '1.1 km',
+        estrelas: 4.6,
+        imagem: '/imagens/jardineira.jpg',
+        preco: 'R$ 100,00'
+    },
+    {
+        id: 3,
+        nome: 'João Mendes',
+        categoria: 'Cuidador de Pets',
+        descricao: 'Amante dos animais, oferece cuidados personalizados e passeios diários.',
+        distancia: '3.7 km',
+        estrelas: 5.0,
+        imagem: '/imagens/cuidador.jpg',
+        preco: 'R$ 80,00'
+    }
+];
+
 const clienteController = {
 
     // --- LOGIN ---
@@ -74,44 +108,36 @@ const clienteController = {
             return res.redirect('/login');
         }
 
-        // Mock de profissionais
-        const profissionais = [
-            {
-                id: 1,
-                nome: 'Carlos Souza',
-                categoria: 'Eletricista',
-                descricao: 'Especialista em instalações e manutenções elétricas residenciais e comerciais.',
-                distancia: '2.3 km',
-                estrelas: 4.8,
-                imagem: '/IMAGENS/eletricista.jpg',
-                preco: 'R$ 150,00'
-            },
-            {
-                id: 2,
-                nome: 'Ana Oliveira',
-                categoria: 'Jardineira',
-                descricao: 'Cuida de jardins, poda e paisagismo com foco sustentável.',
-                distancia: '1.1 km',
-                estrelas: 4.6,
-                imagem: '/IMAGENS/jardineira.jpg',
-                preco: 'R$ 100,00'
-            },
-            {
-                id: 3,
-                nome: 'João Mendes',
-                categoria: 'Cuidador de Pets',
-                descricao: 'Amante dos animais, oferece cuidados personalizados e passeios diários.',
-                distancia: '3.7 km',
-                estrelas: 5.0,
-                imagem: '/IMAGENS/cuidador.jpg',
-                preco: 'R$ 80,00'
-            }
-        ];
+        // permite filtrar com query param `q`
+        const q = (req.query.q || '').trim().toLowerCase();
+        let profissionais = PROFESSIONALS;
+        if (q) {
+            profissionais = PROFESSIONALS.filter(p => {
+                return p.nome.toLowerCase().includes(q)
+                    || p.categoria.toLowerCase().includes(q)
+                    || (p.descricao && p.descricao.toLowerCase().includes(q));
+            });
+        }
 
         res.render('home', {
             cliente: req.session.cliente,
-            profissionais
+            profissionais,
+            q: req.query.q || ''
         });
+    },
+
+    // Endpoint JSON para sugestões (autocomplete)
+    searchSuggestions(req, res) {
+        const q = (req.query.q || '').trim().toLowerCase();
+        if (!q) return res.json([]);
+
+        const matches = PROFESSIONALS.filter(p => {
+            return p.nome.toLowerCase().includes(q)
+                || p.categoria.toLowerCase().includes(q)
+                || (p.descricao && p.descricao.toLowerCase().includes(q));
+        }).slice(0, 8).map(p => ({ id: p.id, nome: p.nome, categoria: p.categoria }));
+
+        return res.json(matches);
     },
 
     // === NOVAS FUNÇÕES ===
@@ -207,10 +233,72 @@ const clienteController = {
 
         try {
             const contratos = await contratoModel.listarPorCliente(cliente_id);
-            res.render('meusServicos', { cliente: req.session.cliente, contratos });
+            // repassa mensagens via query string (success/error) para exibição amigável
+            const success = req.query.success || null;
+            const error = req.query.error || null;
+            res.render('meusServicos', { cliente: req.session.cliente, contratos, success, error });
         } catch (error) {
             console.error(error);
             res.status(500).send('Erro ao carregar seus serviços.');
+        }
+    },
+
+    // Mostrar formulário de edição de um contrato
+    async showEditarContrato(req, res) {
+        if (!req.session.cliente) return res.redirect('/login');
+
+        const { id } = req.params;
+        try {
+            const contrato = await contratoModel.findById(id);
+            if (!contrato) return res.status(404).send('Contrato não encontrado');
+
+            // apenas permitir que o dono veja/edite
+            if (contrato.cliente_id !== req.session.cliente.id) return res.status(403).send('Acesso negado');
+
+            return res.render('editarContrato', { cliente: req.session.cliente, contrato });
+        } catch (err) {
+            console.error(err);
+            return res.status(500).send('Erro ao carregar contrato.');
+        }
+    },
+
+    // Recebe edição do contrato
+    async handleEditarContrato(req, res) {
+        if (!req.session.cliente) return res.redirect('/login');
+
+        const { id } = req.params;
+        const { profissional_nome, categoria, status } = req.body;
+
+        try {
+            const contrato = await contratoModel.findById(id);
+            if (!contrato) return res.status(404).send('Contrato não encontrado');
+            if (contrato.cliente_id !== req.session.cliente.id) return res.status(403).send('Acesso negado');
+
+            await contratoModel.atualizar(id, { profissional_nome, categoria, status });
+            const msg = encodeURIComponent('Serviço atualizado com sucesso.');
+            return res.redirect(`/meus-servicos?success=${msg}`);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).send('Erro ao atualizar contrato.');
+        }
+    },
+
+    // Excluir contrato
+    async excluirContrato(req, res) {
+        if (!req.session.cliente) return res.redirect('/login');
+
+        const { id } = req.params;
+        try {
+            const contrato = await contratoModel.findById(id);
+            if (!contrato) return res.status(404).send('Contrato não encontrado');
+            if (contrato.cliente_id !== req.session.cliente.id) return res.status(403).send('Acesso negado');
+
+            await contratoModel.excluir(id);
+            const msg = encodeURIComponent('Serviço excluído com sucesso.');
+            return res.redirect(`/meus-servicos?success=${msg}`);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).send('Erro ao excluir contrato.');
         }
     },
 

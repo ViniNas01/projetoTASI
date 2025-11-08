@@ -18,6 +18,14 @@ router.post('/contratar/:id', ctrl.confirmarContratacao);
 
 router.get('/meus-servicos', ctrl.listarContratos);
 
+// API de busca (autocomplete)
+router.get('/api/search', ctrl.searchSuggestions);
+
+// editar / excluir contratos
+router.get('/contratos/:id/editar', ctrl.showEditarContrato);
+router.post('/contratos/:id/editar', ctrl.handleEditarContrato);
+router.post('/contratos/:id/excluir', ctrl.excluirContrato);
+
 
 // LOGOUT
 router.get('/logout', ctrl.logout);

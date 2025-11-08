@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <title>Home - ContrataFácil</title>
-  <link rel="stylesheet" href="/STYLE/style.css" />
+  <link rel="stylesheet" href="/style/style.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="home-body">
@@ -28,11 +28,25 @@
   <main class="content">
     <!-- Barra de pesquisa -->
     <section class="search-section">
-      <form action="#" method="GET" class="search-form">
-        <input type="text" placeholder="Buscar serviços..." name="q" />
+      <form method="GET" action="/home" id="search-form" autocomplete="off">
+        <div style="position:relative;max-width:500px;margin:0 auto;">
+          <input id="search-input" type="text" name="q" placeholder="Buscar serviços ou profissionais..." value="<%= typeof q !== 'undefined' ? q : '' %>" />
         <button type="submit"><i data-lucide="search"></i></button>
+          <div id="suggestions" class="autocomplete" style="display:none;"></div>
+        </div>
       </form>
     </section>
+
+    <!-- Mensagem quando não há resultados -->
+    <% if (profissionais.length === 0) { %>
+      <div class="no-results" style="text-align:center;margin:18px 0;">
+        <% if (typeof q !== 'undefined' && q.trim() !== '') { %>
+          Nenhum resultado encontrado para "<strong><%= q %></strong>". Tente outra pesquisa ou verifique a grafia.
+        <% } else { %>
+          Nenhum profissional disponível no momento.
+        <% } %>
+      </div>
+    <% } %>
 
     <!-- Lista de profissionais -->
     <section class="cards-section">
@@ -53,6 +67,59 @@
     </section>
   </main>
 
-  <script>lucide.createIcons();</script>
+  <script>
+    lucide.createIcons();
+
+    // Autocomplete simples com debounce
+    (function() {
+      const input = document.getElementById('search-input');
+      const suggestions = document.getElementById('suggestions');
+      let timer = null;
+
+      function clearSuggestions(){
+        suggestions.innerHTML = '';
+        suggestions.style.display = 'none';
+      }
+
+      function renderList(items){
+        if(!items || items.length === 0){ clearSuggestions(); return; }
+        suggestions.innerHTML = items.map(i => `<div class="autocomplete-item" data-id="${i.id}">${i.nome} <small style="color:#666;">— ${i.categoria}</small></div>`).join('');
+        suggestions.style.display = 'block';
+      }
+
+      function fetchSuggestions(q){
+        fetch('/api/search?q=' + encodeURIComponent(q))
+          .then(r => r.json())
+          .then(renderList)
+          .catch(()=>{});
+      }
+
+      input && input.addEventListener('input', (e) => {
+        const v = e.target.value.trim();
+        clearTimeout(timer);
+        if(!v){ clearSuggestions(); return; }
+        timer = setTimeout(()=> fetchSuggestions(v), 250);
+      });
+
+      // preencher ao clicar
+      suggestions && suggestions.addEventListener('click', (e) => {
+        const it = e.target.closest('.autocomplete-item');
+        if(!it) return;
+        // coloca somente o nome no input
+        const text = it.textContent.split('—')[0].trim();
+        input.value = text;
+        clearSuggestions();
+        // submeter o formulário
+        document.getElementById('search-form').submit();
+      });
+
+      // fecha quando clicar fora
+      document.addEventListener('click', (e)=>{
+        if(!e.target.closest('#suggestions') && !e.target.closest('#search-input')){
+          clearSuggestions();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
