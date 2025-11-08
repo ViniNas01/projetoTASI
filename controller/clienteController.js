@@ -180,16 +180,23 @@ const clienteController = {
         if (!profissional) return res.status(404).send('Profissional não encontrado');
 
         try {
+            // cria o registro no banco
             await contratoModel.criar(cliente_id, profissional);
 
-            res.send(`
-      <h2>✅ Contratação Confirmada!</h2>
-      <p>Você contratou ${profissional.nome} (${profissional.categoria}) com sucesso.</p>
-      <a href="/home">Voltar à página inicial</a>
-    `);
+            // montar dados para exibição imediata (podemos também buscar do DB se preferir)
+            const contrato = {
+                data: new Date().toLocaleString('pt-BR'),
+                status: 'confirmado'
+            };
+
+            return res.render('confirmacao', {
+                cliente: req.session.cliente,
+                profissional,
+                contrato
+            });
         } catch (error) {
             console.error(error);
-            res.status(500).send('Erro ao registrar contratação.');
+            return res.status(500).send('Erro ao registrar contratação.');
         }
     },
 
