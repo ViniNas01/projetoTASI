@@ -157,6 +157,28 @@
   margin: 12px auto;
 }
 
+/* ======== AÇÕES (EDITAR / EXCLUIR) ======== */
+.acoes-servico {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+/* Aplicar espaçamento space-between para botões dentro de cards */
+.card-servico .card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-servico .card-info .acoes-servico .btn-contratar,
+.card-servico .card-info .acoes-servico button,
+.card-servico .card-info .acoes-servico a {
+  flex: 1 1 auto;
+}
+
+
 
 .link-cadastro {
   margin-top: 16px;
